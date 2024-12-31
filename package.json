@@ -5,8 +5,10 @@
   "name": "wanderlust",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",  // Assuming your entry point is 'server.js'
   "scripts": {
+    "start": "node server.js",  // Make sure to include the start script
+    "dev": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
