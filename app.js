@@ -2,6 +2,7 @@ if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
 
+const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -49,7 +50,7 @@ const store = MongoStore.create({
   touchAfter: 24 * 2600,
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
   console.log("ERROR in MONGO SESSION STORE", err);
 });
 
@@ -99,7 +100,5 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("./listings/error.ejs", { message });
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+// Wrap your express app with serverless
+module.exports.handler = serverless(app);
